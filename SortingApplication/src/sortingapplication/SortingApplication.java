@@ -20,7 +20,13 @@ public class SortingApplication {
     public static void insertionSort() {
     }
 
-    public static void quickSort() {
+    public static void shellSort() {
+    }
+
+    public static void pigeonholeSort() {
+    }
+
+    public static void bucketSort() {
     }
 
     /**
@@ -43,10 +49,12 @@ public class SortingApplication {
         Table applicationTable;
         Date birthDay;
 
+        PigeonholeSort pigeonholeSort = new PigeonholeSort();
+
         //
         // The path of the application... set up for your use
         //
-        applicationPath = "/media/wanderley/DADOS/Dropbox/UFG/Aulas/Aulas-2016-1/AOB/Trabalhos/SortingApplication/";
+        applicationPath = "";
         applicationTable = new Table();
         applicationRecord = new PersonalRecord();
         applicationDocument = new IdentificationDocument();
@@ -55,10 +63,10 @@ public class SortingApplication {
 
         numberOfRecordsDesired = 5;
         System.out.println("Generating <" + numberOfRecordsDesired + "> randomly records to form the table.");
-        numberOfRecordsGenerated = applicationTable.randomGenerateToCSV(applicationPath + "Table.csv", numberOfRecordsDesired);
+        numberOfRecordsGenerated = applicationTable.randomGenerateToCSV(applicationPath + "TableTeste.csv", numberOfRecordsDesired);
         if (numberOfRecordsGenerated != 0) {
-            System.out.println("Loading the stored record from  <" + "Table.csv" + "> to the table.");
-            numberOfRecordsLoaded = (int) applicationTable.loadFromCSV(applicationPath + "Table.csv", 0, (numberOfRecordsGenerated - 1));
+            System.out.println("Loading the stored record from  <" + "TableTeste.csv" + "> to the table.");
+            numberOfRecordsLoaded = (int) applicationTable.loadFromCSV(applicationPath + "TableTeste.csv", 0, (numberOfRecordsGenerated - 1));
             if (numberOfRecordsLoaded == numberOfRecordsGenerated) {
                 System.out.println("Printing records from the table.");
                 numberOfRecordsPrinted = applicationTable.print(0, (numberOfRecordsGenerated - 1));
@@ -79,8 +87,11 @@ public class SortingApplication {
             System.out.println("Please check the parameters entered for the generation process.");
         }
 
-        applicationTable.exchangeRecords(1, 2);
+        applicationTable.exchangeRecords(0, 1);
         applicationTable.print(0, 4);
+        applicationTable.saveToCSV(applicationPath + "TableTeste.csv", 0, 4);
+        
+        pigeonholeSort.sortTable(applicationTable);
 
     }
 

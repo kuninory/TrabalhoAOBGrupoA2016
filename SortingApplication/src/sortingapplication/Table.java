@@ -631,11 +631,9 @@ public class Table {
      * printed
      * @return the number of records printed in the output device
      */
-
     public int print(int paramFirstPosition, int paramLastPosition) {
 
-        int i,
-                recordCounter;
+        int i,recordCounter;
 
         recordCounter = 0;
         if (paramFirstPosition > paramLastPosition) {
