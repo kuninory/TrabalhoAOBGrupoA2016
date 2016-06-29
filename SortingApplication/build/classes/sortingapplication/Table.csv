@@ -1,0 +1,10 @@
+1 , 12345678901,  55, Joaquim Maria Machado de Assis, M, 21/10/1971,  15,  55, A+,  false, nothing, something
+2 , 23456789012,  27, Olavo Bilac                   , M, 29/06/1981,  65,  55, A-,  true , anything, nothing
+3 , 34567890123,  32, Manoel Bandeira               , M,  7/09/1961,  45,  55, B+,  false, nothing, nothing
+4 , 45678901234,   1, Joao Cabral de Melo Neto      , M,  4/10/1941, 155,  55, B-,  false, nothing, nothing
+5 , 56789012345,  17, Jose de Alencar               , M,  9/06/1972,  17,  55, O+,  false, nothing, something
+6 , 67890123456,  26, Clarice Lispector             , F, 14/03/1992,  26,  55, O-,  true,  anything, nothing
+7 , 78901234567, 455, Ligia Fagundes Teles          , f,  8/05/1977, 455,  55, AB+, false, nothing, nothing
+8 , 89012345678, 425, Alan Madison Turing           , M, 18/01/1939, 425,  55, AB-, false, nothing, nothing
+9 , 90123456789, 326, John Von Neumann              , M, 13/02/1928,  55,  55, A-,  false, nothing, something
+10, 01234567890, 189, Noam Chomsky                  , M, 16/11/1986, 189,  55, O+,  true,  anything, nothing
