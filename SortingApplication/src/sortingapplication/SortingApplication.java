@@ -90,7 +90,7 @@ public class SortingApplication {
         applicationTable.exchangeRecords(0, 1);
         applicationTable.print(0, 4);
         applicationTable.saveToCSV(applicationPath + "TableTeste.csv", 0, 4);
-        
+
         pigeonholeSort.sortTable(applicationTable);
 
     }
