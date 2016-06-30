@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.45" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MainController">
+   <children>
+      <VBox prefHeight="300.0" prefWidth="300.0">
+         <children>
+            <Label text="Choose a file to sort:" />
+            <TextField fx:id="tfFileChosen" />
+            <Button fx:id="btFileChooser" mnemonicParsing="false" onAction="#chooseAFile" text="Choose..." />
+            <Label text="Choose a sorting algorithm:" />
+            <RadioButton fx:id="rbSelectionSort" mnemonicParsing="false" selected="true" text="Selection Sort">
+               <toggleGroup>
+                  <ToggleGroup fx:id="radioButtonsGroup" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="rbInsertionSort" mnemonicParsing="false" text="Insertion Sort" toggleGroup="$radioButtonsGroup" />
+            <RadioButton fx:id="rbShellSort" mnemonicParsing="false" text="Shell Sort" toggleGroup="$radioButtonsGroup" />
+            <RadioButton fx:id="rbPigeonHoleSort" mnemonicParsing="false" text="Pigeon Hole Sort" toggleGroup="$radioButtonsGroup" />
+            <RadioButton fx:id="rbBucketSort" mnemonicParsing="false" text="Bucket Sort" toggleGroup="$radioButtonsGroup" />
+            <Button fx:id="btSort" mnemonicParsing="false" onAction="#sort" text="Sort" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
