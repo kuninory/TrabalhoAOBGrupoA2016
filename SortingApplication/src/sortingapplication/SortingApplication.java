@@ -62,7 +62,7 @@ public class SortingApplication {
         birthDay = new Date();
         randomNumber = new Random();
 
-        numberOfRecordsDesired = 50000;
+        numberOfRecordsDesired = 500;
         System.out.println("Generating <" + numberOfRecordsDesired + "> randomly records to form the table.");
         numberOfRecordsGenerated = applicationTable.randomGenerateToCSV(applicationPath + "TableTeste.csv", numberOfRecordsDesired);
         if (numberOfRecordsGenerated != 0) {
