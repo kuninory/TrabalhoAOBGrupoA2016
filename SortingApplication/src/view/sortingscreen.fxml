@@ -30,12 +30,12 @@
             <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0">
                <children>
                   <Label text="Print from:" />
-                  <TextField fx:id="tfFrom" prefWidth="25.0" />
+                  <TextField fx:id="tfFrom" prefWidth="35.0" />
                   <Label text="to:">
                      <HBox.margin>
                         <Insets left="5.0" />
                      </HBox.margin></Label>
-                  <TextField fx:id="tfTo" prefWidth="25.0" />
+                  <TextField fx:id="tfTo" prefWidth="35.0" />
                </children>
             </HBox>
             <Separator prefWidth="200.0" />

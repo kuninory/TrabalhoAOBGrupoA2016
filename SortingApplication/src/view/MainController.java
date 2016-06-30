@@ -1,6 +1,7 @@
 package view;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -10,7 +11,10 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import sortingapplication.BucketSort;
+import sortingapplication.InsertionSort;
 import sortingapplication.PigeonholeSort;
+import sortingapplication.ShellSort;
 import sortingapplication.Table;
 import sortingapplication.TableGenerator;
 
@@ -50,38 +54,48 @@ public class MainController implements Initializable {
     }
 
     /**
-     * Opens a FileChooser dialog to select the file that is supposed to be sorted.
-     * Then, the file path is shown in the tfFileChosen textfield.
+     * Opens a FileChooser dialog to select the file that is supposed to be
+     * sorted. Then, the file path is shown in the tfFileChosen textfield.
+     * @throws java.io.IOException
      */
     @FXML
-    public void chooseAFile() {
+    public void chooseAFile() throws IOException {
         File file = fileChooser.showOpenDialog(btFileChooser.getScene().getWindow());
         if (file != null) {
             fileChosen = file;
             tfFileChosen.setText(file.getPath());
+
+            TableGenerator generator = new TableGenerator();
+            table = generator.generate(fileChosen);
+            
+            System.out.println("Table from " + fileChosen.getName() + " generated successfully");
         }
     }
-    
+
+    /**
+     * Calls a TableGenerator to create a random table.
+     */
     @FXML
     public void generateAFile() {
         String inputFromTextField = tfNumberOfRecords.getText();
         if (inputFromTextField != null && inputFromTextField.matches("\\d+")) {
             int numberOfRecords = Integer.valueOf(inputFromTextField);
             TableGenerator generator = new TableGenerator(numberOfRecords);
-            table = generator.generate();
-            System.out.println("Table generated successfuly.");
+            table = generator.generateRandom();
+            System.out.println("Random table generated successfully.");
         } else {
             System.out.println("Invalid number of records.");
         }
     }
-    
+
     /**
-     * Method used by the btSort button.
-     * It calls a sorting algorithm, according to the selected radiobutton.
+     * Method used by the btSort button. It calls a sorting algorithm, according
+     * to the selected radiobutton.
+     * @throws java.lang.Exception
      */
     @FXML
     public void sort() throws Exception {
-        if (fileChosen != null || table != null) {
+        if (table != null) {
             if (rbInsertionSort.isSelected()) {
                 insertionSort();
             } else if (rbShellSort.isSelected()) {
@@ -93,36 +107,49 @@ public class MainController implements Initializable {
             }
         }
     }
-    
+
     /**
      * Calls the Insertion Sort Algorithm.
+     * @throws java.lang.Exception
      */
-    public void insertionSort() {
-        System.out.println("Chamou o Insertion Sort para ordenar " + fileChosen.getName());
+    public void insertionSort() throws Exception {
+        InsertionSort insertion = new InsertionSort();
+        insertion.sortTable(table);        
+        SortingScreen sortingScreen = new SortingScreen(table);
+        sortingScreen.start(new Stage());
     }
-    
+
     /**
      * Calls the Shell Sort Algorithm.
+     * @throws java.lang.Exception
      */
-    public void shellSort() {
-        System.out.println("Chamou o Shell Sort para ordenar " + fileChosen.getName());
+    public void shellSort() throws Exception {
+        ShellSort shell = new ShellSort();
+        shell.sortTable(table);        
+        SortingScreen sortingScreen = new SortingScreen(table);
+        sortingScreen.start(new Stage());
     }
-    
+
     /**
      * Calls the Pigeon Hole Sort Algorithm.
+     * @throws java.lang.Exception
      */
     public void pigeonHoleSort() throws Exception {
         PigeonholeSort pigeonhole = new PigeonholeSort();
         pigeonhole.sortTable(table);
-        SortingScreen sortingScreen = new SortingScreen(table); // Calls a new
-        sortingScreen.start(new Stage());                       // sorting screen
+        SortingScreen sortingScreen = new SortingScreen(table); 
+        sortingScreen.start(new Stage());
     }
-    
+
     /**
      * Calls the Bucket Sort Algorithm.
+     * @throws java.lang.Exception
      */
-    public void bucketSort() {
-        System.out.println("Chamou o Bucket Sort para ordenar " + fileChosen.getName());
+    public void bucketSort() throws Exception {
+        BucketSort bucket = new BucketSort();
+        bucket.sortTable(table);        
+        SortingScreen sortingScreen = new SortingScreen(table);
+        sortingScreen.start(new Stage());
     }
 
 }

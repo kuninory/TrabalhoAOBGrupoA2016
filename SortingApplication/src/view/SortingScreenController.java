@@ -10,8 +10,7 @@ import javafx.scene.control.TextField;
 import sortingapplication.Table;
 
 /**
- * FXML Controller class.
- * It controls the sortingscreen.fxml file.
+ * FXML Controller class. It controls the sortingscreen.fxml file.
  *
  * @author eric
  */
@@ -19,7 +18,7 @@ public class SortingScreenController implements Initializable {
 
     private Table table;
     int from, to;
-    
+
     @FXML
     private RadioButton rbAll;
     @FXML
@@ -30,20 +29,25 @@ public class SortingScreenController implements Initializable {
     private TextField tfTo;
     @FXML
     private Button btPrint;
-    
+
     public SortingScreenController(Table table) {
         this.table = table;
-        System.out.println("chegou2");
     }
-    
+
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    
+    }
+
+    /**
+     * Method called by the btPrint button. It chooses which method of print
+     * will be called, based on the selected RadioButton.
+     */
     public void onPrint() {
         if (rbAll.isSelected()) {
             printAll();
@@ -51,41 +55,57 @@ public class SortingScreenController implements Initializable {
             printRange();
         }
     }
-    
+
+    /**
+     * Prints all the records of the table.
+     */
     public void printAll() {
-        System.out.println("\nPrinting all records: ");
+        System.out.println("############ Sorting Results ############");
+        System.out.println("\nPrinting all sorted records: ");
         table.print(0, table.getNumberOfRecords() - 1);
     }
-    
+
+    /**
+     * Prints a range of records of the table, set by the user.
+     */
     public void printRange() {
-        boolean validFrom = false, 
+        boolean validFrom = false,
                 validTo = false;
-        
+
         if (tfFrom == null) {
             from = 0;
             validFrom = true;
         } else if (tfFrom.getText().matches("\\d+")) {
             from = Integer.parseInt(tfFrom.getText());
-            validFrom = true;
+            if (from >= 0 && from <= Integer.parseInt(tfTo.getText())) {
+                validFrom = true;
+            } else {
+                validFrom = false;
+            }
         } else {
             System.out.println("Invalid value/range.");
             validFrom = false;
         }
-        
+
         if (tfTo != null && tfTo.getText().matches("\\d+")) {
-            to = Integer.parseInt(tfTo.getText()) - 1;
-            validTo = true;
+            to = Integer.parseInt(tfTo.getText());
+            if (to >= from && to < table.getNumberOfRecords()) {
+                validTo = true;
+            } else {
+                validTo = false;
+            }
         } else {
             System.out.println("Invalid value/range.");
             validTo = false;
         }
-        
-        if (validFrom == true && validTo == true) {
-            System.out.println("\nPrinting from " + from + " to " + to + ": ");
-            table.print(from, to);
-        }
 
+        if (validFrom == true && validTo == true) {
+            System.out.println("############ Sorting Results ############");
+            System.out.println("\nPrinting sorted records from " + from + " to " + to + ": ");
+            table.print(from, to);
+        } else {
+            System.out.println("Invalid value/range.");
+        }
     }
 
-    
 }
