@@ -2,12 +2,16 @@ package view;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -25,10 +29,13 @@ import sortingapplication.TableGenerator;
  */
 public class MainController implements Initializable {
 
+    private PrintStream ps ;
     private FileChooser fileChooser;
     private File fileChosen;
     private Table table;
 
+    @FXML
+    private TextArea console;
     @FXML
     private TextField tfFileChosen;
     @FXML
@@ -152,4 +159,19 @@ public class MainController implements Initializable {
         sortingScreen.start(new Stage());
     }
 
+    public class Console extends OutputStream {
+        private TextArea console;
+
+        public Console(TextArea console) {
+            this.console = console;
+        }
+
+        public void appendText(String valueOf) {
+            Platform.runLater(() -> console.appendText(valueOf));
+        }
+
+        public void write(int b) throws IOException {
+            appendText(String.valueOf((char)b));
+        }
+    }
 }

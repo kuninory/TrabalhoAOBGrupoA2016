@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
+ * The main class of the application.
  * 
  * @author eric
  */
@@ -14,6 +15,9 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        ConsoleScreen cs = new ConsoleScreen();
+        cs.start(new Stage());
+        
         Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
 
         Scene scene = new Scene(root);
@@ -21,6 +25,7 @@ public class Main extends Application {
         stage.setTitle("Sorting Application");
         stage.setScene(scene);
         stage.show();
+ 
     }
 
     /**
