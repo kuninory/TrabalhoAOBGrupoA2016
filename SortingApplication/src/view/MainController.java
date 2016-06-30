@@ -9,6 +9,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import sortingapplication.PigeonholeSort;
+import sortingapplication.Table;
+import sortingapplication.TableGenerator;
 
 /**
  * FXML Controller class. It controls the main.fxml file.
@@ -19,13 +23,16 @@ public class MainController implements Initializable {
 
     private FileChooser fileChooser;
     private File fileChosen;
+    private Table table;
 
     @FXML
     private TextField tfFileChosen;
     @FXML
     private Button btFileChooser;
     @FXML
-    private RadioButton rbSelectionSort;
+    private TextField tfNumberOfRecords;
+    @FXML
+    private Button btGenerate;
     @FXML
     private RadioButton rbInsertionSort;
     @FXML
@@ -55,16 +62,27 @@ public class MainController implements Initializable {
         }
     }
     
+    @FXML
+    public void generateAFile() {
+        String inputFromTextField = tfNumberOfRecords.getText();
+        if (inputFromTextField != null && inputFromTextField.matches("\\d+")) {
+            int numberOfRecords = Integer.valueOf(inputFromTextField);
+            TableGenerator generator = new TableGenerator(numberOfRecords);
+            table = generator.generate();
+            System.out.println("Table generated successfuly.");
+        } else {
+            System.out.println("Invalid number of records.");
+        }
+    }
+    
     /**
      * Method used by the btSort button.
      * It calls a sorting algorithm, according to the selected radiobutton.
      */
     @FXML
-    public void sort() {
-        if (fileChosen != null) {
-            if (rbSelectionSort.isSelected()) {
-                selectionSort();
-            } else if (rbInsertionSort.isSelected()) {
+    public void sort() throws Exception {
+        if (fileChosen != null || table != null) {
+            if (rbInsertionSort.isSelected()) {
                 insertionSort();
             } else if (rbShellSort.isSelected()) {
                 shellSort();
@@ -74,13 +92,6 @@ public class MainController implements Initializable {
                 bucketSort();
             }
         }
-    }
-    
-    /**
-     * Calls the Selection Sort Algorithm.
-     */
-    public void selectionSort() {
-        System.out.println("Chamou o Selection Sort para ordenar " + fileChosen.getName());
     }
     
     /**
@@ -100,8 +111,11 @@ public class MainController implements Initializable {
     /**
      * Calls the Pigeon Hole Sort Algorithm.
      */
-    public void pigeonHoleSort() {
-        System.out.println("Chamou o Pigeon Hole Sort para ordenar " + fileChosen.getName());
+    public void pigeonHoleSort() throws Exception {
+        PigeonholeSort pigeonhole = new PigeonholeSort();
+        pigeonhole.sortTable(table);
+        SortingScreen sortingScreen = new SortingScreen(table); // Calls a new
+        sortingScreen.start(new Stage());                       // sorting screen
     }
     
     /**
